@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.qindachang.rulerview.MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="32dp"
+        android:text="身高"
+        android:textColor="#303030"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_height"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/colorAccent"
+        android:textSize="20sp" />
+
+    <com.qindachang.library.RulerView
+        android:id="@+id/rulerView_height"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#ffd900"
+        app:alphaEnable="true"
+        app:lineColor="#ffffff"
+        app:lineMaxHeight="35dp"
+        app:lineMidHeight="30dp"
+        app:lineMinHeight="20dp"
+        app:lineSpaceWidth="7dp"
+        app:lineWidth="2dp"
+        app:textColor="#ffffff"
+        app:textMarginTop="5dp"
+        app:textSize="18sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="32dp"
+        android:text="体重"
+        android:textColor="#303030"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_weight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/colorAccent"
+        android:textSize="20sp" />
+
+    <com.qindachang.library.RulerView
+        android:id="@+id/rulerView_weight"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/colorPrimary"
+        app:alphaEnable="false"
+        app:lineColor="#ffffff"
+        app:lineMaxHeight="50dp"
+        app:lineMidHeight="43dp"
+        app:lineMinHeight="35dp"
+        app:lineSpaceWidth="12dp"
+        app:lineWidth="1dp"
+        app:textColor="#ffffff"
+        app:textMarginTop="8dp"
+        app:textSize="22sp" />
+
+</LinearLayout>

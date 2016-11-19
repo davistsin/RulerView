@@ -1,0 +1,33 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
+
+    defaultConfig {
+        minSdkVersion 9
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+publish {
+    userOrg = 'qindachang'
+    groupId = 'com.qindachang'
+    artifactId = 'ruler-view'
+    publishVersion = '0.0.1'
+    desc = 'Android ruler constom view library'
+    website = 'https://github.com/qindachang/RulerView'
+}
