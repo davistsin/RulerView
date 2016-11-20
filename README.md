@@ -5,7 +5,7 @@
 
 ##引入
 
-    compile 'com.qindachang:RulerView:0.0.1'
+    compile 'com.qindachang:ruler-view:0.0.1'
 
 ##XML
 
