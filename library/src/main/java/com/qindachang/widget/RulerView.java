@@ -1,4 +1,4 @@
-package com.qindachang.library;
+package com.qindachang.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -24,24 +24,23 @@ public class RulerView extends View {
     private int mWidth;
     private int mHeight;
 
-    private float mValue = 50;
-    private float mMaxValue = 100;
-    private float mMinValue = 0;
+    private float mSelectorValue = 0.0f;
+    private float mMaxValue = 100.0f;
+    private float mMinValue = 0.0f;
+    private int mPerValue = 1;
 
-    private float mItemSpacing = 5;
+    private float mLineSpaceWidth = 5;
     private float mLineWidth = 1;
-    private float mMaxLineHeight = 42;
-    private float mMiddleLineHeight = 30;
-    private float mMinLineHeight = 17;
-    private int mLineColor=1;
+    private float mLineMaxHeight = 42;
+    private float mLineMidHeight = 30;
+    private float mLineMinHeight = 17;
+    private int mLineColor = 1;
 
     private float mTextMarginTop = 8;
     private float mTextSize = 14;
-    private int mTextColor=1;
+    private int mTextColor = 1;
 
     private boolean mAlphaEnable = true;
-
-    private int mPerSpanValue = 1;
 
     private float mTextHeight;
 
@@ -50,7 +49,7 @@ public class RulerView extends View {
 
     private int mTotalLine;
     private int mMaxOffset;
-    private float mOffset; // 默认尺起始点在屏幕中心, offset是指尺起始点的偏移值
+    private float mOffset;
     private int mLastX, mMove;
     private OnValueChangeListener mListener;
 
@@ -61,7 +60,6 @@ public class RulerView extends View {
 
     public RulerView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
-
     }
 
     public RulerView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -77,16 +75,21 @@ public class RulerView extends View {
 
         mAlphaEnable = typedArray.getBoolean(R.styleable.RulerView_alphaEnable, mAlphaEnable);
 
-        mItemSpacing = typedArray.getDimension(R.styleable.RulerView_lineSpaceWidth, dp2px(context, mItemSpacing));
+        mLineSpaceWidth = typedArray.getDimension(R.styleable.RulerView_lineSpaceWidth, dp2px(context, mLineSpaceWidth));
         mLineWidth = typedArray.getDimension(R.styleable.RulerView_lineWidth, dp2px(context, mLineWidth));
-        mMaxLineHeight = typedArray.getDimension(R.styleable.RulerView_lineMaxHeight, dp2px(context, mMaxLineHeight));
-        mMiddleLineHeight = typedArray.getDimension(R.styleable.RulerView_lineMidHeight, dp2px(context, mMiddleLineHeight));
-        mMinLineHeight = typedArray.getDimension(R.styleable.RulerView_lineMinHeight, dp2px(context, mMinLineHeight));
+        mLineMaxHeight = typedArray.getDimension(R.styleable.RulerView_lineMaxHeight, dp2px(context, mLineMaxHeight));
+        mLineMidHeight = typedArray.getDimension(R.styleable.RulerView_lineMidHeight, dp2px(context, mLineMidHeight));
+        mLineMinHeight = typedArray.getDimension(R.styleable.RulerView_lineMinHeight, dp2px(context, mLineMinHeight));
         mLineColor = typedArray.getColor(R.styleable.RulerView_lineColor, mLineColor);
 
         mTextSize = typedArray.getDimension(R.styleable.RulerView_textSize, dp2px(context, mTextSize));
         mTextColor = typedArray.getColor(R.styleable.RulerView_textColor, mTextColor);
         mTextMarginTop = typedArray.getDimension(R.styleable.RulerView_textMarginTop, dp2px(context, mTextMarginTop));
+
+        mSelectorValue = typedArray.getFloat(R.styleable.RulerView_selectorValue, 0.0f);
+        mMinValue = typedArray.getFloat(R.styleable.RulerView_minValue, 0.0f);
+        mMaxValue = typedArray.getFloat(R.styleable.RulerView_maxValue, 100.0f);
+        mPerValue = (int) (typedArray.getFloat(R.styleable.RulerView_perValue, 0.1f)*10);
 
         mMinVelocity = ViewConfiguration.get(getContext()).getScaledMinimumFlingVelocity();
 
@@ -98,6 +101,8 @@ public class RulerView extends View {
         mLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mLinePaint.setStrokeWidth(mLineWidth);
         mLinePaint.setColor(mLineColor);
+
+        setValue(mSelectorValue, mMinValue, mMaxValue, mPerValue);
 
         typedArray.recycle();
     }
@@ -112,13 +117,48 @@ public class RulerView extends View {
         return fm.descent - fm.ascent;
     }
 
-    public void setTextPaintColor(int color) {
+    public void setTextColor(int color) {
         mTextPaint.setColor(color);
         invalidate();
     }
 
-    public void setLinePaintColor(int color) {
+    public void setTextSize(float textSize) {
+        mTextPaint.setTextSize(textSize);
+        invalidate();
+    }
+
+    public void setTextMarginTop(float marginTop) {
+        mTextMarginTop = marginTop;
+        invalidate();
+    }
+
+    public void setLineColor(int color) {
         mLinePaint.setColor(color);
+        invalidate();
+    }
+
+    public void setLineWidth(float width) {
+        mLineWidth = width;
+        invalidate();
+    }
+
+    public void setLineSpaceWidth(float width) {
+        mLineSpaceWidth = width;
+        invalidate();
+    }
+
+    public void setLineMinHeight(float height) {
+        mLineMinHeight = height;
+        invalidate();
+    }
+
+    public void setLineMidHeight(float height) {
+        mLineMidHeight = height;
+        invalidate();
+    }
+
+    public void setLineMaxHeight(float height) {
+        mLineMaxHeight = height;
         invalidate();
     }
 
@@ -127,15 +167,15 @@ public class RulerView extends View {
         invalidate();
     }
 
-    public void initViewParam(float defaultValue, float minValue, float maxValue, int spanValue) {
-        this.mValue = defaultValue;
+    public void setValue(float selectorValue, float minValue, float maxValue, float per) {
+        this.mSelectorValue = selectorValue;
         this.mMaxValue = maxValue;
         this.mMinValue = minValue;
-        this.mPerSpanValue = spanValue;
-        this.mTotalLine = (int) (maxValue * 10 - minValue * 10) / spanValue + 1;
-        mMaxOffset = (int) (-(mTotalLine - 1) * mItemSpacing);
+        this.mPerValue = (int) (per * 10.0f);
+        this.mTotalLine = (int) (mMaxValue * 10 - mMinValue * 10) / mPerValue + 1;
+        mMaxOffset = (int) (-(mTotalLine - 1) * mLineSpaceWidth);
 
-        mOffset = (minValue - defaultValue) / spanValue * mItemSpacing * 10;
+        mOffset = (mMinValue - mSelectorValue) / mPerValue * mLineSpaceWidth * 10;
         invalidate();
         setVisibility(VISIBLE);
     }
@@ -161,20 +201,20 @@ public class RulerView extends View {
         String value;
         int alpha = 0;
         float scale;
-        int srcPointX = mWidth / 2; // 默认表尺起始点在屏幕中心
+        int srcPointX = mWidth / 2;
         for (int i = 0; i < mTotalLine; i++) {
-            left = srcPointX + mOffset + i * mItemSpacing;
+            left = srcPointX + mOffset + i * mLineSpaceWidth;
 
             if (left < 0 || left > mWidth) {
                 continue;
             }
 
             if (i % 10 == 0) {
-                height = mMaxLineHeight;
+                height = mLineMaxHeight;
             } else if (i % 5 == 0) {
-                height = mMiddleLineHeight;
+                height = mLineMidHeight;
             } else {
-                height = mMinLineHeight;
+                height = mLineMinHeight;
             }
             if (mAlphaEnable) {
                 scale = 1 - Math.abs(left - srcPointX) / srcPointX;
@@ -184,8 +224,8 @@ public class RulerView extends View {
 
             canvas.drawLine(left, 0, left, height, mLinePaint);
 
-            if (i % 10 == 0) { // 大指标,要标注文字
-                value = String.valueOf((int) (mMinValue + i * mPerSpanValue / 10));
+            if (i % 10 == 0) {
+                value = String.valueOf((int) (mMinValue + i * mPerValue / 10));
                 if (mAlphaEnable) {
                     mTextPaint.setAlpha(alpha);
                 }
@@ -248,8 +288,8 @@ public class RulerView extends View {
         mLastX = 0;
         mMove = 0;
 
-        mValue = mMinValue + Math.round(Math.abs(mOffset) * 1.0f / mItemSpacing) * mPerSpanValue / 10.0f;
-        mOffset = (mMinValue - mValue) * 10.0f / mPerSpanValue * mItemSpacing; // 矫正位置,保证不会停留在两个相邻刻度之间
+        mSelectorValue = mMinValue + Math.round(Math.abs(mOffset) * 1.0f / mLineSpaceWidth) * mPerValue / 10.0f;
+        mOffset = (mMinValue - mSelectorValue) * 10.0f / mPerValue * mLineSpaceWidth;
         notifyValueChange();
         postInvalidate();
     }
@@ -265,14 +305,14 @@ public class RulerView extends View {
             mMove = 0;
             mScroller.forceFinished(true);
         }
-        mValue = mMinValue + Math.round(Math.abs(mOffset) * 1.0f / mItemSpacing) * mPerSpanValue / 10.0f;
+        mSelectorValue = mMinValue + Math.round(Math.abs(mOffset) * 1.0f / mLineSpaceWidth) * mPerValue / 10.0f;
         notifyValueChange();
         postInvalidate();
     }
 
     private void notifyValueChange() {
         if (null != mListener) {
-            mListener.onValueChange(mValue);
+            mListener.onValueChange(mSelectorValue);
         }
     }
 
@@ -284,7 +324,7 @@ public class RulerView extends View {
     public void computeScroll() {
         super.computeScroll();
         if (mScroller.computeScrollOffset()) {
-            if (mScroller.getCurrX() == mScroller.getFinalX()) { // over
+            if (mScroller.getCurrX() == mScroller.getFinalX()) {
                 countMoveEnd();
             } else {
                 int xPosition = mScroller.getCurrX();

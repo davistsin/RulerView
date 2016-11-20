@@ -25,7 +25,7 @@
         android:textColor="@color/colorAccent"
         android:textSize="20sp" />
 
-    <com.qindachang.library.RulerView
+    <com.qindachang.widget.RulerView
         android:id="@+id/rulerView_height"
         android:layout_width="match_parent"
         android:layout_height="80dp"
@@ -39,7 +39,10 @@
         app:lineWidth="2dp"
         app:textColor="#ffffff"
         app:textMarginTop="5dp"
-        app:textSize="18sp" />
+        app:textSize="18sp"
+        app:minValue="70.0"
+        app:maxValue="230.0"
+        app:selectorValue="170.0"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -58,7 +61,7 @@
         android:textColor="@color/colorAccent"
         android:textSize="20sp" />
 
-    <com.qindachang.library.RulerView
+    <com.qindachang.widget.RulerView
         android:id="@+id/rulerView_weight"
         android:layout_width="match_parent"
         android:layout_height="100dp"
