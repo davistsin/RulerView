@@ -27,7 +27,7 @@ public class RulerView extends View {
     private float mSelectorValue = 0.0f;
     private float mMaxValue = 100.0f;
     private float mMinValue = 0.0f;
-    private int mPerValue = 1;
+    private float mPerValue = 1;
 
     private float mLineSpaceWidth = 5;
     private float mLineWidth = 1;
@@ -89,7 +89,7 @@ public class RulerView extends View {
         mSelectorValue = typedArray.getFloat(R.styleable.RulerView_selectorValue, 0.0f);
         mMinValue = typedArray.getFloat(R.styleable.RulerView_minValue, 0.0f);
         mMaxValue = typedArray.getFloat(R.styleable.RulerView_maxValue, 100.0f);
-        mPerValue = (int) (typedArray.getFloat(R.styleable.RulerView_perValue, 0.1f)*10);
+        mPerValue = typedArray.getFloat(R.styleable.RulerView_perValue, 0.1f);
 
         mMinVelocity = ViewConfiguration.get(getContext()).getScaledMinimumFlingVelocity();
 
@@ -172,7 +172,7 @@ public class RulerView extends View {
         this.mMaxValue = maxValue;
         this.mMinValue = minValue;
         this.mPerValue = (int) (per * 10.0f);
-        this.mTotalLine = (int) (mMaxValue * 10 - mMinValue * 10) / mPerValue + 1;
+        this.mTotalLine = ((int) ((mMaxValue * 10 - mMinValue * 10) / mPerValue)) + 1;
         mMaxOffset = (int) (-(mTotalLine - 1) * mLineSpaceWidth);
 
         mOffset = (mMinValue - mSelectorValue) / mPerValue * mLineSpaceWidth * 10;

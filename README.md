@@ -5,7 +5,7 @@
 
 ##引入
 
-    compile 'com.qindachang:ruler-view:0.0.1'
+    compile 'com.qindachang:ruler-view:1.0.0'
 
 ##XML
 
@@ -26,6 +26,7 @@
         app:textSize="18sp" //设置文字大小
         app:minValue="70.0"    // 设置最小值
         app:maxValue="230.0"  //设置最大值
+        app:perValue="0.1" //设置刻度尺的单位值
         app:selectorValue="170.0"/>  //设置选中的值
 
 ##Java

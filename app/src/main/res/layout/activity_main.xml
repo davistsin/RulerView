@@ -42,6 +42,7 @@
         app:textSize="18sp"
         app:minValue="70.0"
         app:maxValue="230.0"
+        app:perValue="0.1"
         app:selectorValue="170.0"/>
 
     <TextView
@@ -73,6 +74,7 @@
         app:lineMinHeight="35dp"
         app:lineSpaceWidth="12dp"
         app:lineWidth="1dp"
+        app:perValue="1"
         app:textColor="#ffffff"
         app:textMarginTop="8dp"
         app:textSize="22sp" />
