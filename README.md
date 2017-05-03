@@ -3,11 +3,11 @@
 
 <img src="https://github.com/qindachang/RulerView/blob/master/imgs/Screenshot_1479577403.png" width = "320" height = "568" alt="截屏" align=center />
 
-##引入
+## 引入
 
     compile 'com.qindachang:ruler-view:1.0.0'
 
-##XML
+## XML
 
     <com.qindachang.widget.RulerView
         android:id="@+id/rulerView_height"
@@ -29,7 +29,7 @@
         app:perValue="0.1" //设置刻度尺的单位值
         app:selectorValue="170.0"/>  //设置选中的值
 
-##Java
+## Java
 
     final TextView mTvWeight = (TextView) findViewById(R.id.tv_weight);
     RulerView mRulerViewWeight = (RulerView) findViewById(R.id.rulerView_weight);
