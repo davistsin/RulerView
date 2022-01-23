@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.qindachang.rulerview.MainActivity">
+    tools:context="com.davistsin.rulerview.MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -25,7 +25,7 @@
         android:textColor="@color/colorAccent"
         android:textSize="20sp" />
 
-    <com.qindachang.widget.RulerView
+    <com.davistin.widget.RulerView
         android:id="@+id/rulerView_height"
         android:layout_width="match_parent"
         android:layout_height="80dp"
@@ -62,7 +62,7 @@
         android:textColor="@color/colorAccent"
         android:textSize="20sp" />
 
-    <com.qindachang.widget.RulerView
+    <com.davistin.widget.RulerView
         android:id="@+id/rulerView_weight"
         android:layout_width="match_parent"
         android:layout_height="100dp"

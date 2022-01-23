@@ -1,15 +1,29 @@
 # RulerView
 
+[![](https://jitpack.io/v/davistsin/RulerView.svg)](https://jitpack.io/#davistsin/RulerView)  ![license](https://img.shields.io/github/license/davistsin/RulerView)
 
-<img src="https://github.com/qindachang/RulerView/blob/master/imgs/Screenshot_1479577403.png" width = "320" height = "568" alt="截屏" align=center />
 
-## 引入
+<img src="./imgs/Screenshot_1479577403.png" width = "320" height = "568" alt="截屏" align=center />
 
-    compile 'com.qindachang:ruler-view:1.0.0'
+## Dependencies
+
+```
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+
+dependencies {
+    implementation 'com.github.davistsin:RulerView:v{latest version}'
+}
+
+```
 
 ## XML
 
-    <com.qindachang.widget.RulerView
+    <com.davistin.widget.RulerView
         android:id="@+id/rulerView_height"
         android:layout_width="match_parent"
         android:layout_height="80dp"

@@ -1,10 +1,12 @@
-package com.qindachang.rulerview;
+package com.davistsin.rulerview;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.qindachang.widget.RulerView;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.davistin.widget.RulerView;
+import com.qindachang.rulerview.R;
 
 public class MainActivity extends AppCompatActivity {
 

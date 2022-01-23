@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/RulerView.iml" filepath="$PROJECT_DIR$/RulerView.iml" />
-      <module fileurl="file://$PROJECT_DIR$/RulerView.iml" filepath="$PROJECT_DIR$/RulerView.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/RulerView.iml" filepath="$PROJECT_DIR$/.idea/modules/RulerView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/RulerView.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/RulerView.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/library/RulerView.library.iml" filepath="$PROJECT_DIR$/.idea/modules/library/RulerView.library.iml" />
     </modules>
   </component>
 </project>

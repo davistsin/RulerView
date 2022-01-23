@@ -1,33 +1,60 @@
-apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
+buildscript {
+    ext.safeExtGet = {prop, fallback ->
+        rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+    }
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+plugins {
+    id 'com.android.library'
+    id 'maven-publish'
+}
+
+repositories {
+    google()
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+group = 'com.github.davistsin'
+version = '1.0.0'
+
+
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.0"
+    compileSdkVersion safeExtGet('compileSdkVersion', 29)
 
     defaultConfig {
-        minSdkVersion 9
-        targetSdkVersion 25
-        versionCode 2
+        minSdkVersion safeExtGet('minSdkVersion', 18)
+        targetSdkVersion safeExtGet('targetSdkVersion', 29)
+        versionCode 1
         versionName "1.0.0"
-
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
+
+
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.annotation:annotation:1.2.0'
 }
 
-publish {
-    userOrg = 'qindachang'
-    groupId = 'com.qindachang'
-    artifactId = 'ruler-view'
-    publishVersion = '1.0.0'
-    desc = 'Android ruler constom view library'
-    website = 'https://github.com/qindachang/RulerView'
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.github.davistsin'
+                artifactId = 'RulerView'
+                version = '1.0.0'
+            }
+        }
+    }
 }

@@ -1,4 +1,4 @@
-package com.qindachang.widget;
+package com.davistin.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -11,11 +11,7 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.Scroller;
 
-/**
- * Created by Qin DaChang on 2016/11/20.
- *
- * @see <a href="https://github.com/qindachang">https://github.com/qindachang</a>
- */
+import com.davistsin.widget.R;
 
 public class RulerView extends View {
     private int mMinVelocity;
