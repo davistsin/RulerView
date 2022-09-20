@@ -16,7 +16,7 @@ allprojects {
 }
 
 dependencies {
-    implementation 'com.github.davistsin:RulerView:v{latest version}'
+    implementation 'com.github.davistsin:RulerView:{latest version}'
 }
 
 ```
